@@ -1,15 +1,75 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
 
-try {
-  // `who-to-greet` input defined in action metadata file
-  const nameToGreet = core.getInput("who-to-greet");
-  console.log(`Hello ${nameToGreet}!`);
-  const time = new Date().toTimeString();
-  core.setOutput("time", time);
-  // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload, undefined, 2);
-  console.log(`The event payload: ${payload}`);
-} catch (error) {
-  core.setFailed(error.message);
+async function run() {
+  try {
+    const githubToken = core.getInput("GITHUB_TOKEN");
+    const customMessage = core.getInput("message");
+    const { context } = github;
+
+    const octokit = new github.GitHub(githubToken);
+
+    if (context.payload.commits) {
+    }
+
+    if (context.payload.review) {
+      if (context.payload.action === "submitted") {
+        const issueNumber = context.payload.pull_request.number;
+        const repository = context.payload.repository;
+
+        const reviewObject = context.payload.review;
+
+        const commentAuthor = reviewObject.user.login;
+
+        const message = customMessage
+          ? customMessage
+          : `<img src="https://media.giphy.com/media/3ohzdQ1IynzclJldUQ/giphy.gif" width="400"/> </br>
+                                      Hey @${commentAuthor}! 👋 <br/> PRs and issues should be safe environments but your comment: <strong>"${toxicComment}"</strong> was classified as potentially toxic! 😔</br>
+                                      Please consider spending a few seconds editing it and feel free to delete me afterwards! 🙂`;
+
+        return octokit.issues.createComment({
+          owner: repository.owner.login,
+          repo: repository.name,
+          issue_number: issueNumber,
+          body: message,
+        });
+      }
+    }
+    if (context.payload.comment) {
+      if (
+        context.payload.action === "created" ||
+        context.payoad.action === "edited"
+      ) {
+        const issueNumber = context.payload.issue.number;
+        const repository = context.payload.repository;
+        const octokit = new github.GitHub(githubToken);
+
+        const comments = [];
+        const commentsObjects = [];
+
+        const latestComment = context.payload.comment;
+        comments.push(latestComment.body);
+        commentsObjects.push(latestComment);
+
+        const commentAuthor = commentsObjects[index].user.login;
+        toxicComment = commentsObjects[index].body;
+        const message = customMessage
+          ? customMessage
+          : `<img src="https://media.giphy.com/media/3ohzdQ1IynzclJldUQ/giphy.gif" width="400"/> </br>
+                                      Hey @${commentAuthor}! 👋 <br/> PRs and issues should be safe environments but your comment: <strong>"${toxicComment}"</strong> was classified as potentially toxic! 😔</br>
+                                      Please consider spending a few seconds editing it and feel free to delete me afterwards! 🙂`;
+
+        return octokit.issues.createComment({
+          owner: repository.owner.login,
+          repo: repository.name,
+          issue_number: issueNumber,
+          body: message,
+        });
+      }
+    }
+  } catch (error) {
+    core.setFailed(error.message);
+  }
 }
+
+run();
