@@ -1,4 +1,12 @@
-on: [push, pull_request, pull_request_review, pull_request_review_comment]
+on:
+  [
+    push,
+    pull_request,
+    pull_request_review,
+    pull_request_review_comment,
+    issues,
+    issues_comment,
+  ]
 
 jobs:
   hello_world_job:
@@ -7,7 +15,7 @@ jobs:
     steps:
       - name: Hello world action step
         id: hello
-        uses: FraserTooth/go-to-sleep-action@master
+        uses: FraserTooth/go-to-sleep-action@test
         with:
           who-to-greet: "Mona the Octocat"
       # Use the output from the `hello` step
