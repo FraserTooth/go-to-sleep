@@ -29,7 +29,9 @@ async function run() {
         console.log(commit.timestamp);
         const asDate = new Date(commit.timestamp);
         console.log(asDate.getTimezoneOffset());
-        console.log(moment(commit.timestamp).format());
+
+        const asMoment = moment(commit.timestamp, "YYY-MM-DDTHH:mm:ssZ");
+        console.log(asMoment.format());
         return moment(commit.timestamp);
       });
       //.reduce((max, time) => moment.max(max, time));
