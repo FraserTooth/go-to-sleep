@@ -27,12 +27,13 @@ async function run() {
     if (context.payload.commits) {
       timestamp = context.payload.commits
         .map((commit) => moment(commit.timestamp))
-        .reduce((max, time) => moment.max(max, time));
+        //.reduce((max, time) => moment.max(max, time));
+        .forEach((time) => console.log(`CommitTime: ${time.format()}`));
     }
 
     console.log(
-      `Timestamp: ${timestamp.format()}, Timezone: ${
-        timestamp.utcOffset() / 60
+      `Timestamp: ${timestamp[0].format()}, Timezone: ${
+        timestamp[0].utcOffset() / 60
       }, Location: ${userLocation}`
     );
 
