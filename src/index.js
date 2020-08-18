@@ -42,16 +42,24 @@ async function run() {
         const totalHour = hour + mins / 60 + timeshift;
         const timeInLocation = totalHour >= 24 ? totalHour - 24 : totalHour;
 
+        const outOfBounds = timeInLocation < 9 || 19 > timeInLocation;
+
         const timefacts = {
           time,
           timezoneString,
+          outOfBounds,
         };
 
-        console.log(`Its currently ${timeInLocation} where you are boyyy`);
+        console.log(`Its currently ${timeInLocation} where you are.`);
 
-        return time;
+        if (outOfBounds) {
+          console.log(
+            `You are very naughty working outside of work hours, get some rest!`
+          );
+        }
+
+        return timefacts;
       });
-      //.reduce((max, time) => moment.max(max, time));
     }
 
     // if (context.payload.review) {
