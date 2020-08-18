@@ -854,7 +854,6 @@ module.exports = eval("require")("encoding");
 
 const core = __webpack_require__(954);
 const github = __webpack_require__(858);
-const cityTimezones = __webpack_require__(547);
 const moment = __webpack_require__(476);
 const fetch = __webpack_require__(219);
 
@@ -8703,14 +8702,6 @@ function getUserAgent() {
 
 exports.getUserAgent = getUserAgent;
 //# sourceMappingURL=index.js.map
-
-
-/***/ }),
-
-/***/ 547:
-/***/ (function(module) {
-
-module.exports = eval("require")("city-timezones");
 
 
 /***/ }),

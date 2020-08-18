@@ -1,6 +1,5 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
-const cityTimezones = require("city-timezones");
 const moment = require("moment");
 const fetch = require("node-fetch");
 
