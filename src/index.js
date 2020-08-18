@@ -1,5 +1,6 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
+const { Octokit } = require("@octokit/rest");
 const moment = require("moment");
 const fetch = require("node-fetch");
 

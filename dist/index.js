@@ -854,6 +854,7 @@ module.exports = eval("require")("encoding");
 
 const core = __webpack_require__(954);
 const github = __webpack_require__(858);
+const { Octokit } = __webpack_require__(203);
 const moment = __webpack_require__(476);
 const fetch = __webpack_require__(219);
 
@@ -946,6 +947,14 @@ async function run() {
 }
 
 run();
+
+
+/***/ }),
+
+/***/ 203:
+/***/ (function(module) {
+
+module.exports = eval("require")("@octokit/rest");
 
 
 /***/ }),
