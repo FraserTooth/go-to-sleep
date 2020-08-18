@@ -13,20 +13,24 @@ async function run() {
 
     const senderObject = context.payload.sender;
 
-    const senderAPIURL = senderObject?.url;
+    const senderAPIURL = senderObject.url;
     const userDataResponse = await fetch(senderAPIURL);
     const userData = await userDataResponse.json();
     const userLocation = userData.location;
 
     console.log();
 
-    let timestamp;
+    let timestamp = moment();
 
     if (context.payload.commits) {
-      const mostRecentTimestamp = commits
+      timestamp = commits
         .map((commit) => moment(commit.timestamp))
         .reduce((max, time) => moment.max(max, time));
     }
+
+    console.log(`Timestamp: ${timestamp.format()}, Location: ${userLocation}`);
+
+    console.log(JSON.stringify(context.payload, undefined, 2));
 
     // if (context.payload.review) {
     //   if (context.payload.action === "submitted") {
