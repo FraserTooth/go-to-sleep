@@ -23,22 +23,32 @@ async function run() {
     let timestamp = new Date();
     let timezone;
     const timezoneRegex = /[\+\-]\d\d:\d\d/gm;
-    console.log(JSON.stringify(context.payload, undefined, 2));
 
     if (context.payload.commits) {
       timestamp = context.payload.commits.map((commit) => {
         timezoneString = timezoneRegex.exec(commit.timestamp)[0];
 
-        [hours, minutes] = timezoneString.split(":").map(Number);
+        [tzHours, tzMinutes] = timezoneString.split(":").map(Number);
 
         const time = new Date(commit.timestamp);
+        const hour = time.getHours();
+        const mins = time.getMinutes();
+
+        console.log(hour, mins);
 
         const timeshift =
-          hours > 0 ? hours + minutes / 60 : hours - minutes / 60;
+          tzHours > 0 ? tzHours + tzMinutes / 60 : tzHours - tzMinutes / 60;
 
-        const hourInZone = time.getHours() + timeshift;
+        const totalHour = hour + mins + timeshift;
+        const timeInLocation = totalHour >= 24 ? totalHour - 24 : totalHour;
 
-        console.log(`Its currently ${hourInZone} where you are`);
+        const timefacts = {
+          time,
+          timezoneString,
+          outOfBounds,
+        };
+
+        console.log(`Its currently ${timeInLocation} where you are boyyy`);
 
         return time;
       });
