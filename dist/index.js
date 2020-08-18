@@ -872,7 +872,7 @@ async function run() {
 
     console.log();
 
-    let timestamp = moment();
+    let timestamp = new Date();
     let timezone;
     const timezoneRegex = /[\+\-]\d\d:\d\d/gm;
     console.log(JSON.stringify(context.payload, undefined, 2));
