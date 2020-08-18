@@ -863,7 +863,7 @@ async function run() {
     const customMessage = core.getInput("message");
     const { context } = github;
 
-    // const octokit = new github.GitHub(githubToken);
+    const octokit = new Octokit({ auth: githubToken });
 
     const senderObject = context.payload.sender;
 
@@ -878,7 +878,7 @@ async function run() {
     console.log(JSON.stringify(context.payload, undefined, 2));
 
     if (context.payload.commits) {
-      timestamp = commits
+      timestamp = context.payload.commits
         .map((commit) => moment(commit.timestamp))
         .reduce((max, time) => moment.max(max, time));
     }
