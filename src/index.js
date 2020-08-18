@@ -2,7 +2,7 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 const cityTimezones = require("city-timezones");
 const moment = require("moment");
-const axios = require("axois");
+const axios = require("axios");
 
 async function run() {
   try {
