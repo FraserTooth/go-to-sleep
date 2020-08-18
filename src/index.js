@@ -27,6 +27,8 @@ async function run() {
     if (context.payload.commits) {
       timestamp = context.payload.commits.map((commit) => {
         console.log(commit.timestamp);
+        const asDate = new Date(commit.timestamp);
+        console.log(asDate.getTimezoneOffset());
         console.log(moment(commit.timestamp).format());
         return moment(commit.timestamp);
       });
