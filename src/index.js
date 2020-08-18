@@ -30,7 +30,11 @@ async function run() {
         .reduce((max, time) => moment.max(max, time));
     }
 
-    console.log(`Timestamp: ${timestamp.format()}, Location: ${userLocation}`);
+    console.log(
+      `Timestamp: ${timestamp.format()}, Timezone: ${
+        timestamp.utcOffset() / 60
+      }, Location: ${userLocation}`
+    );
 
     // if (context.payload.review) {
     //   if (context.payload.action === "submitted") {
