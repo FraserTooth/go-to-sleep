@@ -863,7 +863,7 @@ async function run() {
     const customMessage = core.getInput("message");
     const { context } = github;
 
-    const octokit = new github.GitHub(githubToken);
+    // const octokit = new github.GitHub(githubToken);
 
     const senderObject = context.payload.sender;
 
