@@ -879,10 +879,12 @@ async function run() {
     console.log(JSON.stringify(context.payload, undefined, 2));
 
     if (context.payload.commits) {
-      timestamp = context.payload.commits
-        .map((commit) => moment(commit.timestamp))
-        //.reduce((max, time) => moment.max(max, time));
-        .forEach((time) => console.log(`CommitTime: ${time.format()}`));
+      timestamp = context.payload.commits.map((commit) => {
+        console.log(commit.timestamp);
+        console.log(moment(commit.timestamp).format());
+        return moment(commit.timestamp);
+      });
+      //.reduce((max, time) => moment.max(max, time));
     }
 
     console.log(
