@@ -1,7 +1,6 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
 const { Octokit } = require("@octokit/rest");
-const moment = require("moment");
 const fetch = require("node-fetch");
 
 async function run() {
@@ -22,26 +21,29 @@ async function run() {
     console.log();
 
     let timestamp = moment();
+    let timezone;
+    const timezoneRegex = /[\+\-]\d\d:\d\d/gm;
     console.log(JSON.stringify(context.payload, undefined, 2));
 
     if (context.payload.commits) {
       timestamp = context.payload.commits.map((commit) => {
-        console.log(commit.timestamp);
-        const asDate = new Date(commit.timestamp);
-        console.log(asDate.getTimezoneOffset());
+        timezoneString = timezoneRegex.exec(commit.timestamp)[0];
 
-        const asMoment = moment(commit.timestamp, "YYY-MM-DDTHH:mm:ssZ");
-        console.log(asMoment.format());
-        return moment(commit.timestamp);
+        [hours, minutes] = timezoneString.split(":").map(Number);
+
+        const time = new Date(commit.timestamp);
+
+        const timeshift =
+          hours > 0 ? hours + minutes / 60 : hours - minutes / 60;
+
+        const hourInZone = time.getHours() + timeshift;
+
+        console.log(`Its currently ${hourInZone} where you are`);
+
+        return time;
       });
       //.reduce((max, time) => moment.max(max, time));
     }
-
-    console.log(
-      `Timestamp: ${timestamp[0].format()}, Timezone: ${
-        timestamp[0].utcOffset() / 60
-      }, Location: ${userLocation}`
-    );
 
     // if (context.payload.review) {
     //   if (context.payload.action === "submitted") {
