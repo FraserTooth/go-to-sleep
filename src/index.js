@@ -2,6 +2,7 @@ const core = require("@actions/core");
 const github = require("@actions/github");
 const cityTimezones = require("city-timezones");
 const moment = require("moment");
+const axios = require("axois");
 
 async function run() {
   try {
@@ -14,8 +15,7 @@ async function run() {
     const senderObject = context.payload.sender;
 
     const senderAPIURL = senderObject.url;
-    const userDataResponse = await fetch(senderAPIURL);
-    const userData = await userDataResponse.json();
+    const userData = await axios.get(senderAPIURL);
     const userLocation = userData.location;
 
     console.log();
