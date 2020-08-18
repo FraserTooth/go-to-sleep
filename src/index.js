@@ -18,7 +18,7 @@ async function run() {
     const userData = await userDataResponse.json();
     const userLocation = userData.location;
 
-    console.log();
+    console.log(context.payload);
 
     let timestamp = new Date();
     let timezone;
