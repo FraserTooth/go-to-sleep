@@ -875,6 +875,7 @@ async function run() {
     console.log();
 
     let timestamp = moment();
+    console.log(JSON.stringify(context.payload, undefined, 2));
 
     if (context.payload.commits) {
       timestamp = commits
@@ -883,8 +884,6 @@ async function run() {
     }
 
     console.log(`Timestamp: ${timestamp.format()}, Location: ${userLocation}`);
-
-    console.log(JSON.stringify(context.payload, undefined, 2));
 
     // if (context.payload.review) {
     //   if (context.payload.action === "submitted") {
