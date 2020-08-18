@@ -854,7 +854,7 @@ module.exports = eval("require")("encoding");
 
 const core = __webpack_require__(954);
 const github = __webpack_require__(858);
-const { Octokit } = __webpack_require__(203);
+const { Octokit } = __webpack_require__(998);
 const moment = __webpack_require__(476);
 const fetch = __webpack_require__(219);
 
@@ -947,14 +947,6 @@ async function run() {
 }
 
 run();
-
-
-/***/ }),
-
-/***/ 203:
-/***/ (function(module) {
-
-module.exports = eval("require")("@octokit/rest");
 
 
 /***/ }),
@@ -9373,6 +9365,44 @@ exports.Context = Context;
 
 /***/ }),
 
+/***/ 733:
+/***/ (function(__unusedmodule, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+const VERSION = "1.0.0";
+
+/**
+ * @param octokit Octokit instance
+ * @param options Options passed to Octokit constructor
+ */
+
+function requestLog(octokit) {
+  octokit.hook.wrap("request", (request, options) => {
+    octokit.log.debug("request", options);
+    const start = Date.now();
+    const requestOptions = octokit.request.endpoint.parse(options);
+    const path = requestOptions.url.replace(options.baseUrl, "");
+    return request(options).then(response => {
+      octokit.log.info(`${requestOptions.method} ${path} - ${response.status} in ${Date.now() - start}ms`);
+      return response;
+    }).catch(error => {
+      octokit.log.info(`${requestOptions.method} ${path} - ${error.status} in ${Date.now() - start}ms`);
+      throw error;
+    });
+  });
+}
+requestLog.VERSION = VERSION;
+
+exports.requestLog = requestLog;
+//# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
 /***/ 747:
 /***/ (function(module) {
 
@@ -11670,6 +11700,31 @@ function withCustomRequest(customRequest) {
 
 exports.graphql = graphql$1;
 exports.withCustomRequest = withCustomRequest;
+//# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
+/***/ 998:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+var core = __webpack_require__(89);
+var pluginRequestLog = __webpack_require__(733);
+var pluginPaginateRest = __webpack_require__(691);
+var pluginRestEndpointMethods = __webpack_require__(953);
+
+const VERSION = "18.0.3";
+
+const Octokit = core.Octokit.plugin(pluginRequestLog.requestLog, pluginRestEndpointMethods.restEndpointMethods, pluginPaginateRest.paginateRest).defaults({
+  userAgent: `octokit-rest.js/${VERSION}`
+});
+
+exports.Octokit = Octokit;
 //# sourceMappingURL=index.js.map
 
 
