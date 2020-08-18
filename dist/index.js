@@ -856,6 +856,7 @@ const core = __webpack_require__(954);
 const github = __webpack_require__(858);
 const cityTimezones = __webpack_require__(986);
 const moment = __webpack_require__(476);
+const axios = __webpack_require__(773);
 
 async function run() {
   try {
@@ -868,8 +869,7 @@ async function run() {
     const senderObject = context.payload.sender;
 
     const senderAPIURL = senderObject.url;
-    const userDataResponse = await fetch(senderAPIURL);
-    const userData = await userDataResponse.json();
+    const userData = await axios.get(senderAPIURL);
     const userLocation = userData.location;
 
     console.log();
@@ -26552,6 +26552,14 @@ module.exports = require("fs");
 /***/ (function(module) {
 
 module.exports = require("zlib");
+
+/***/ }),
+
+/***/ 773:
+/***/ (function(module) {
+
+module.exports = eval("require")("axois");
+
 
 /***/ }),
 
