@@ -894,7 +894,7 @@ async function run() {
         const totalHour = hour + mins / 60 + timeshift;
         const timeInLocation = totalHour >= 24 ? totalHour - 24 : totalHour;
 
-        const outOfBounds = timeInLocation < 9 || 19 > timeInLocation;
+        const outOfBounds = timeInLocation < 9 || 19 < timeInLocation;
 
         const timefacts = {
           time,
