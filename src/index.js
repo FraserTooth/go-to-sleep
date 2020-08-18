@@ -45,7 +45,6 @@ async function run() {
         const timefacts = {
           time,
           timezoneString,
-          // outOfBounds,
         };
 
         console.log(`Its currently ${timeInLocation} where you are boyyy`);
