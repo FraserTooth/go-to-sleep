@@ -883,7 +883,6 @@ function convertGithubTIme(timezoneString, itemID, item, context, octokit) {
       `You are very naughty working outside of work hours, get some rest!`
     );
 
-    const issueNumber = context.payload.pull_request.number;
     const repository = context.payload.repository;
 
     octokit.repos.createCommitComment({
