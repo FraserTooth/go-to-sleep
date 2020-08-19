@@ -891,7 +891,7 @@ async function run() {
     //   issue_comment - comment on issue OR pr itself
     */
 
-    if ((event = push && context.payload.commits)) {
+    if ((event =  true && context.payload.commits)) {
       timestamp = context.payload.commits.map((commit) => {
         timezoneString = timezoneRegex.exec(commit.timestamp)[0];
 
