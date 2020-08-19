@@ -14,11 +14,37 @@ Stop coding and go to sleep!
 
 The time we greeted you.
 
-## Example usage
+## How to use
 
-uses: actions/hello-world-javascript-action@v1
-with:
-who-to-greet: 'Mona the Octocat'
+_If you do not have any Github actions already set up in your repo, start by creating a .github/workflows folder._
+
+Inside your workflows folder, create a new .yml file, for example `main.yml` and copy the following lines:
+
+```yml
+on:
+  [
+    push,
+    pull_request,
+    pull_request_review,
+    pull_request_review_comment,
+    issues,
+    issue_comment,
+  ]
+
+jobs:
+  go_to_sleep_job:
+    runs-on: ubuntu-latest
+    name: Go To Sleep-o-tron
+    steps:
+      - name: GTFTSleep
+        id: hello
+        uses: FraserTooth/go-to-sleep-action@master
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          custom_message: "GTFT Sleep!"
+```
+
+`GITHUB_TOKEN` is **required** but two other parameters are optional:
 
 ## Testing
 
