@@ -855,6 +855,38 @@ const github = __webpack_require__(858);
 const { Octokit } = __webpack_require__(998);
 const fetch = __webpack_require__(219);
 
+function convertGithubTIme(timezoneString) {
+  [tzHours, tzMinutes] = timezoneString.split(":").map(Number);
+
+  const time = new Date(commit.timestamp);
+  const hour = time.getHours();
+  const mins = time.getMinutes();
+
+  const timeshift =
+    tzHours > 0 ? tzHours + tzMinutes / 60 : tzHours - tzMinutes / 60;
+
+  const totalHour = hour + mins / 60 + timeshift;
+  const timeInLocation = totalHour >= 24 ? totalHour - 24 : totalHour;
+
+  const outOfBounds = timeInLocation < 9 || 19 < timeInLocation;
+
+  const timefacts = {
+    time,
+    timezoneString,
+    outOfBounds,
+  };
+
+  console.log(`Its currently ${timeInLocation} where you are.`);
+
+  if (outOfBounds) {
+    console.log(
+      `You are very naughty working outside of work hours, get some rest!`
+    );
+  }
+
+  return timefacts;
+}
+
 async function run() {
   try {
     const githubToken = core.getInput("GITHUB_TOKEN");
@@ -891,41 +923,11 @@ async function run() {
     //   issue_comment - comment on issue OR pr itself
     */
 
-    if (event == "push" && context.payload.commits) {
+    if (event === "push" && context.payload.commits) {
       timestamp = context.payload.commits.map((commit) => {
-        timezoneString = timezoneRegex.exec(commit.timestamp)[0];
+        const timezoneString = timezoneRegex.exec(commit.timestamp)[0];
 
-        [tzHours, tzMinutes] = timezoneString.split(":").map(Number);
-
-        const time = new Date(commit.timestamp);
-        const hour = time.getHours();
-        const mins = time.getMinutes();
-
-        console.log(hour, mins);
-
-        const timeshift =
-          tzHours > 0 ? tzHours + tzMinutes / 60 : tzHours - tzMinutes / 60;
-
-        const totalHour = hour + mins / 60 + timeshift;
-        const timeInLocation = totalHour >= 24 ? totalHour - 24 : totalHour;
-
-        const outOfBounds = timeInLocation < 9 || 19 < timeInLocation;
-
-        const timefacts = {
-          time,
-          timezoneString,
-          outOfBounds,
-        };
-
-        console.log(`Its currently ${timeInLocation} where you are.`);
-
-        if (outOfBounds) {
-          console.log(
-            `You are very naughty working outside of work hours, get some rest!`
-          );
-        }
-
-        return timefacts;
+        return convertGithubTIme(timezoneString);
       });
     }
 
