@@ -19,11 +19,12 @@ async function run() {
     const userData = await userDataResponse.json();
     const userLocation = userData.location;
 
+    console.log(`Event: ${event}`);
     // console.log(context.payload);
-    console.log("Context");
-    console.log(context);
-    console.log("Payload");
-    console.log(JSON.stringify(context.payload, undefined, 2));
+    // console.log("Context");
+    // console.log(context);
+    // console.log("Payload");
+    // console.log(JSON.stringify(context.payload, undefined, 2));
 
     let timestamp = new Date();
     let timezone;
