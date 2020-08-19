@@ -3,10 +3,10 @@ const github = require("@actions/github");
 const { Octokit } = require("@octokit/rest");
 const fetch = require("node-fetch");
 
-function convertGithubTIme(timezoneString, itemID, context, octokit) {
+function convertGithubTIme(timezoneString, itemID, item, context, octokit) {
   [tzHours, tzMinutes] = timezoneString.split(":").map(Number);
 
-  const time = new Date(commit.timestamp);
+  const time = new Date(item.timestamp);
   const hour = time.getHours();
   const mins = time.getMinutes();
 
@@ -85,7 +85,13 @@ async function run() {
       timestamp = context.payload.commits.map((commit) => {
         const timezoneString = timezoneRegex.exec(commit.timestamp)[0];
 
-        return convertGithubTIme(timezoneString, commit.id, context, octokit);
+        return convertGithubTIme(
+          timezoneString,
+          commit.id,
+          commit,
+          context,
+          octokit
+        );
       });
     }
 
