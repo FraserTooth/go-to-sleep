@@ -29,6 +29,15 @@ async function run() {
     let timezone;
     const timezoneRegex = /[\+\-]\d\d:\d\d/gm;
 
+    /* Event Types
+    //   push - commits 
+    //   pull_request - opened pr
+    //   pull_request_review - reviewed pr
+    //   pull_request_review_comment,
+    //   issues - new issue
+    //   issue_comment - comment on issue OR pr itself
+    */
+
     if ((event = push && context.payload.commits)) {
       timestamp = context.payload.commits.map((commit) => {
         timezoneString = timezoneRegex.exec(commit.timestamp)[0];
