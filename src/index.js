@@ -19,6 +19,9 @@ async function run() {
     const userLocation = userData.location;
 
     // console.log(context.payload);
+    console.log("Context");
+    console.log(context);
+    console.log("Payload");
     console.log(JSON.stringify(context.payload, undefined, 2));
 
     let timestamp = new Date();
