@@ -9,12 +9,12 @@ on:
   ]
 
 jobs:
-  hello_world_job:
+  go_to_sleep_job:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: Go To Sleep-o-tron
     steps:
-      - name: Hello world action step
+      - name: GTFTSleep
         id: hello
         uses: FraserTooth/go-to-sleep-action@master
         with:
-          who-to-greet: "Mona the Octocat"
+          custom_message: "GTFT Sleep!"
