@@ -3,7 +3,7 @@ const github = require("@actions/github");
 const { Octokit } = require("@octokit/rest");
 const fetch = require("node-fetch");
 
-function convertGithubTIme(timezoneString, context, octokit) {
+function convertGithubTIme(timezoneString, itemID, context, octokit) {
   [tzHours, tzMinutes] = timezoneString.split(":").map(Number);
 
   const time = new Date(commit.timestamp);
@@ -37,7 +37,7 @@ function convertGithubTIme(timezoneString, context, octokit) {
     octokit.repos.createCommitComment({
       owner: repository.owner.login,
       repo: repository.name,
-      commit_sha: commit.id,
+      commit_sha: itemID,
       body: "poo poo",
     });
   }
@@ -85,7 +85,7 @@ async function run() {
       timestamp = context.payload.commits.map((commit) => {
         const timezoneString = timezoneRegex.exec(commit.timestamp)[0];
 
-        return convertGithubTIme(timezoneString, context, octokit);
+        return convertGithubTIme(timezoneString, commit.id, context, octokit);
       });
     }
 
