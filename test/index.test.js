@@ -1,6 +1,6 @@
 const main = require("../src/index");
 
-const commitsExample = require("./commits.json");
+const commitsExample = require("./fixtures/commits.json");
 
 jest.mock("@actions/core");
 jest.mock("@actions/github");

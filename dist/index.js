@@ -848,7 +848,7 @@ module.exports = eval("require")("encoding");
 /***/ }),
 
 /***/ 129:
-/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
 const core = __webpack_require__(954);
 const github = __webpack_require__(858);
@@ -871,6 +871,9 @@ async function run() {
     const userLocation = userData.location;
 
     // console.log(context.payload);
+    console.log("Context");
+    console.log(context);
+    console.log("Payload");
     console.log(JSON.stringify(context.payload, undefined, 2));
 
     let timestamp = new Date();
@@ -976,6 +979,8 @@ async function run() {
 }
 
 run();
+
+module.exports = run;
 
 
 /***/ }),
