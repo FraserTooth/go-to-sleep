@@ -34,10 +34,10 @@ function convertGithubTIme(timezoneString, context, octokit) {
     const issueNumber = context.payload.pull_request.number;
     const repository = context.payload.repository;
 
-    octokit.issues.createComment({
+    octokit.repos.createCommitComment({
       owner: repository.owner.login,
       repo: repository.name,
-      issue_number: issueNumber,
+      commit_sha: commit.id,
       body: "poo poo",
     });
   }
