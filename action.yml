@@ -1,13 +1,10 @@
-name: "Hello World"
-description: "Greet someone and record the time"
+name: "Sandman"
+description: "Tell Overly hardworking engineers to go to sleep"
 inputs:
-  who-to-greet: # id of input
-    description: "Who to greet"
-    required: true
-    default: "World"
-outputs:
-  time: # id of output
-    description: "The time we greeted you"
+  custom_message: # id of input
+    description: "Custom Go-To-Sleep Message"
+    required: false
+    default: "Please please please go to sleep."
 runs:
   using: "node12"
   main: "dist/index.js"
