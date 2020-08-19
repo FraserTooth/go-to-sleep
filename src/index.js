@@ -8,6 +8,7 @@ async function run() {
     const githubToken = core.getInput("GITHUB_TOKEN");
     const customMessage = core.getInput("message");
     const { context } = github;
+    const event = context.eventName;
 
     const octokit = new Octokit({ auth: githubToken });
 
@@ -28,7 +29,7 @@ async function run() {
     let timezone;
     const timezoneRegex = /[\+\-]\d\d:\d\d/gm;
 
-    if (context.payload.commits) {
+    if ((event = push && context.payload.commits)) {
       timestamp = context.payload.commits.map((commit) => {
         timezoneString = timezoneRegex.exec(commit.timestamp)[0];
 
