@@ -3,7 +3,7 @@ const github = require("@actions/github");
 const { Octokit } = require("@octokit/rest");
 const fetch = require("node-fetch");
 
-function convertGithubTIme(timezoneString) {
+function convertGithubTIme(timezoneString, context, octokit) {
   [tzHours, tzMinutes] = timezoneString.split(":").map(Number);
 
   const time = new Date(commit.timestamp);
@@ -30,6 +30,16 @@ function convertGithubTIme(timezoneString) {
     console.log(
       `You are very naughty working outside of work hours, get some rest!`
     );
+
+    const issueNumber = context.payload.pull_request.number;
+    const repository = context.payload.repository;
+
+    octokit.issues.createComment({
+      owner: repository.owner.login,
+      repo: repository.name,
+      issue_number: issueNumber,
+      body: "poo poo",
+    });
   }
 
   return timefacts;
@@ -75,7 +85,7 @@ async function run() {
       timestamp = context.payload.commits.map((commit) => {
         const timezoneString = timezoneRegex.exec(commit.timestamp)[0];
 
-        return convertGithubTIme(timezoneString);
+        return convertGithubTIme(timezoneString, context, octokit);
       });
     }
 
