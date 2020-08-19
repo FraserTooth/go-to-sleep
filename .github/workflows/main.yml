@@ -17,4 +17,5 @@ jobs:
         id: hello
         uses: FraserTooth/go-to-sleep-action@master
         with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           custom_message: "GTFT Sleep!"
