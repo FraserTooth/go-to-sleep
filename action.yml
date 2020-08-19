@@ -5,6 +5,9 @@ inputs:
     description: "Custom Go-To-Sleep Message"
     required: false
     default: "Please please please go to sleep."
+  GITHUB_TOKEN: # id of input
+    description: "Github Auth Token"
+    required: true
 runs:
   using: "node12"
   main: "dist/index.js"

@@ -6,7 +6,7 @@ const fetch = require("node-fetch");
 async function run() {
   try {
     const githubToken = core.getInput("GITHUB_TOKEN");
-    const customMessage = core.getInput("message");
+    const customMessage = core.getInput("custom_message");
     const { context } = github;
     const event = context.eventName;
 
@@ -39,7 +39,7 @@ async function run() {
     //   issue_comment - comment on issue OR pr itself
     */
 
-    if ((event = "push" && context.payload.commits)) {
+    if (event == "push" && context.payload.commits) {
       timestamp = context.payload.commits.map((commit) => {
         timezoneString = timezoneRegex.exec(commit.timestamp)[0];
 
