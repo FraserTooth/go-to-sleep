@@ -114,13 +114,6 @@ async function run() {
   } catch (error) {
     core.setFailed(error.message);
   }
-
-  const senderObject = context.payload.sender;
-
-  const senderAPIURL = senderObject.url;
-  const userDataResponse = await fetch(senderAPIURL);
-  const userData = await userDataResponse.json();
-  const userLocation = userData.location;
 }
 
 run();
