@@ -43,9 +43,7 @@ async function run() {
 
     const octokit = new Octokit({ auth: githubToken });
 
-    const message =
-      core.getInput("custom_message") ||
-      "Its quite late, maybe you should go to sleep!";
+    const message = core.getInput("custom_message");
 
     console.log(`Event Type: ${event}`);
     // console.log(context.payload);
@@ -55,6 +53,8 @@ async function run() {
     // console.log(JSON.stringify(context.payload, undefined, 2));
 
     let custom_timezone = core.getInput("timezone");
+
+    console.log(`Custom Timezone: ${custom_timezone}`);
     const timezoneRegex = /[\+\-]\d\d:\d\d/gm;
 
     /* Event Types

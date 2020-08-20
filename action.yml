@@ -4,10 +4,13 @@ inputs:
   custom_message: # id of input
     description: "Custom Go-To-Sleep Message"
     required: false
-    default: "Please please please go to sleep."
+    default: "Its quite late, maybe you should go to sleep!"
   GITHUB_TOKEN: # id of input
     description: "Github Auth Token"
     required: true
+  timezone:
+    description: "Timezone of your team"
+    required: false
 runs:
   using: "node12"
   main: "dist/index.js"
