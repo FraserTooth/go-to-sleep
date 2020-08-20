@@ -3,10 +3,10 @@ const github = require("@actions/github");
 const { Octokit } = require("@octokit/rest");
 const fetch = require("node-fetch");
 
-function convertGithubTIme(timezoneString, itemID, item, context, octokit) {
+function convertGithubTIme(timezoneString, timestamp) {
   [tzHours, tzMinutes] = timezoneString.split(":").map(Number);
 
-  const time = new Date(item.timestamp);
+  const time = new Date(timestamp);
   const hour = time.getHours();
   const mins = time.getMinutes();
 
@@ -18,30 +18,11 @@ function convertGithubTIme(timezoneString, itemID, item, context, octokit) {
 
   const outOfBounds = timeInLocation < 9 || 19 < timeInLocation;
 
-  const timefacts = {
+  return {
     time,
-    timezoneString,
+    timeInLocation,
     outOfBounds,
   };
-
-  console.log(`Its currently ${timeInLocation} where you are.`);
-
-  if (outOfBounds) {
-    console.log(
-      `You are very naughty working outside of work hours, get some rest!`
-    );
-
-    const repository = context.payload.repository;
-
-    octokit.repos.createCommitComment({
-      owner: repository.owner.login,
-      repo: repository.name,
-      commit_sha: itemID,
-      body: "poo poo",
-    });
-  }
-
-  return timefacts;
 }
 
 async function run() {
@@ -50,6 +31,7 @@ async function run() {
     const customMessage = core.getInput("custom_message");
     const { context } = github;
     const event = context.eventName;
+    const repository = context.payload.repository;
 
     const octokit = new Octokit({ auth: githubToken });
 
@@ -59,6 +41,8 @@ async function run() {
     const userDataResponse = await fetch(senderAPIURL);
     const userData = await userDataResponse.json();
     const userLocation = userData.location;
+
+    const message = "Its quite late, maybe you should go to sleep!";
 
     console.log(`Event: ${event}`);
     // console.log(context.payload);
@@ -81,16 +65,24 @@ async function run() {
     */
 
     if (event === "push" && context.payload.commits) {
-      timestamp = context.payload.commits.map((commit) => {
+      context.payload.commits.forEach((commit) => {
         const timezoneString = timezoneRegex.exec(commit.timestamp)[0];
 
-        return convertGithubTIme(
+        ({ time, timeInLocation, outOfBounds } = convertGithubTIme(
           timezoneString,
-          commit.id,
-          commit,
-          context,
-          octokit
-        );
+          commit.timestamp
+        ));
+
+        console.log(`Its currently ${timeInLocation} where you are.`);
+
+        if (outOfBounds) {
+          octokit.repos.createCommitComment({
+            owner: repository.owner.login,
+            repo: repository.name,
+            commit_sha: itemID,
+            body: message,
+          });
+        }
       });
     }
 
