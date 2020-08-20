@@ -1,6 +1,6 @@
 # The Github Sandman Action
 
-![Sleepy Time](http://gph.is/25oBvhL)
+![Sleepy Time](https://media.giphy.com/media/mguPrVJAnEHIY/giphy.gif)
 
 Stop coding and go to sleep!
 
