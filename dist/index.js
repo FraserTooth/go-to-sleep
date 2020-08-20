@@ -935,7 +935,7 @@ async function run() {
             owner: repository.owner.login,
             repo: repository.name,
             commit_sha: commit.id,
-            body: message,
+            body: message + "\nYou shouldn't be making commits at this time!",
           });
         }
       });
@@ -945,9 +945,10 @@ async function run() {
     // Need Custom Timestamp to proceed
     if (!custom_timezone) return;
 
+    // OPEN Pull Request
     if (event === "pull_request" && context.payload.pull_request) {
       ({ time, timeInLocation, outOfBounds } = convertGithubTIme(
-        commit.timestamp,
+        context.payload.pull_request.created_at,
         null,
         custom_timezone
       ));
@@ -959,7 +960,7 @@ async function run() {
           owner: repository.owner.login,
           repo: repository.name,
           issue_number: context.payload.pull_request.number,
-          body: message,
+          body: message + "\nYou shouldn't be opening PRs at this time!",
         });
       }
     }
