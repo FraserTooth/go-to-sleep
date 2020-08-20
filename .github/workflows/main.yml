@@ -19,3 +19,4 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           timezone: "+09:00"
+          custom_message: "Oh dear, its very late where you are.\nWe appreciate your hard work but maybe you should go to bed."

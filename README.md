@@ -1,18 +1,29 @@
-# go-to-sleep-action
+# The Github Sandman Action
+
+![Sleepy Time](http://gph.is/25oBvhL)
 
 Stop coding and go to sleep!
 
 ## Inputs
 
-### `who-to-greet`
+### `GITHUB_TOKEN`
 
-**Required** The name of the person to greet. Default `"World"`.
+**Required**  
+Just put `${{ secrets.GITHUB_TOKEN }}` and it should work fine.
 
-## Outputs
+### `timezone`
 
-### `time`
+**Required for any events other than commits (push)**  
+Enter your team's timezone in the ISO format `(+/-)hh:mm`:  
+e.g. `timezone: "+09:00"`
 
-The time we greeted you.
+### `custom_mesage`
+
+**Optional**  
+Put your custom message as a Markdown formatted string:  
+e.g. `custom_message: "Oh dear, its very late where you are.\nWe appreciate your hard work but maybe you should go to bed."`
+
+Default: `"Its quite late, maybe you should go to sleep!"`
 
 ## How to use
 
@@ -41,10 +52,7 @@ jobs:
         uses: FraserTooth/go-to-sleep-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          custom_message: "GTFT Sleep!"
 ```
-
-`GITHUB_TOKEN` is **required** but two other parameters are optional:
 
 ## Testing
 
