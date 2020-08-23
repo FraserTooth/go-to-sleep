@@ -935,7 +935,7 @@ async function run() {
             owner: repository.owner.login,
             repo: repository.name,
             commit_sha: commit.id,
-            body: message + "\nYou shouldn't be making commits at this time!",
+            body: message,
           });
         }
       });
