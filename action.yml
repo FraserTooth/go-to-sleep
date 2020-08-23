@@ -1,4 +1,4 @@
-name: "Sandman"
+name: "go-to-sleep"
 description: "Tell Overly hardworking engineers to go to sleep"
 inputs:
   GITHUB_TOKEN: # id of input
