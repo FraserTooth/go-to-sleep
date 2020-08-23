@@ -14,7 +14,7 @@ Just put `${{ secrets.GITHUB_TOKEN }}` and it should work fine.
 ### `custom_mesage`
 
 **Optional**  
-Put your custom message as a Markdown formatted string:  
+Put your custom message as a HTML formatted string:  
 e.g. `custom_message: "Oh dear, its very late where you are.\nWe appreciate your hard work but maybe you should go to bed."`
 
 Default: `"Its quite late, maybe you should go to sleep!"`
@@ -52,7 +52,10 @@ jobs:
         uses: FraserTooth/go-to-sleep-action@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          timezone: "+09:00"
+          custom_message: "Oh dear, its very late where you are.\n  We appreciate your hard work but maybe you should go to bed. </br>  <img src=\"https://media.giphy.com/media/C8hwMVdQFOUww/giphy.gif\" width=\"400\"/>"
 ```
+_Note: Remember to use HTML, not Markdown!_
 
 ## Testing
 
