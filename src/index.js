@@ -108,7 +108,7 @@ async function run() {
           owner: repository.owner.login,
           repo: repository.name,
           issue_number: context.payload.pull_request.number,
-          body: message + "\nYou shouldn't be opening PRs at this time!",
+          body: message,
         });
       }
     }

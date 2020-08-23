@@ -1,4 +1,4 @@
-# The Github Go-To-Sleep Action
+# The Github Go-To-Sleep-a-Tron Action
 
 ![Sleepy Time](https://media.giphy.com/media/mguPrVJAnEHIY/giphy.gif)
 
