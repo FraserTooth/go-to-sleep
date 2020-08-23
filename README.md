@@ -59,6 +59,13 @@ jobs:
 ```
 _Note: Remember to use HTML, not Markdown!_
 
+## Feature TODOs
+
+- Configurable 'Out Of Bounds'
+- Add more action types
+- Add a 'per Github contributer' timezone
+- Allow configuration of posting to a basic Slack webhook or sending an Email to send notifications outside of Github
+
 ## Testing
 
 Locally, run `npm install` to get everything up and running
