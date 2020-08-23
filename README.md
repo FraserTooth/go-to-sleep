@@ -11,12 +11,6 @@ Stop coding and go to sleep!
 **Required**  
 Just put `${{ secrets.GITHUB_TOKEN }}` and it should work fine.
 
-### `timezone`
-
-**Required for any events other than commits (push)**  
-Enter your team's timezone in the ISO format `(+/-)hh:mm`:  
-e.g. `timezone: "+09:00"`
-
 ### `custom_mesage`
 
 **Optional**  
@@ -24,6 +18,12 @@ Put your custom message as a Markdown formatted string:
 e.g. `custom_message: "Oh dear, its very late where you are.\nWe appreciate your hard work but maybe you should go to bed."`
 
 Default: `"Its quite late, maybe you should go to sleep!"`
+
+### `timezone`
+
+**Required for any events other than commits (push)**  
+Enter your team's timezone in the ISO format `(+/-)hh:mm`:  
+e.g. `timezone: "+09:00"`
 
 ## How to use
 
@@ -35,11 +35,11 @@ Inside your workflows folder, create a new .yml file, for example `main.yml` and
 on:
   [
     push,
-    pull_request,
-    pull_request_review,
-    pull_request_review_comment,
-    issues,
-    issue_comment,
+    pull_request,                 # Slightly Supported
+    pull_request_review,          # Not Supported
+    pull_request_review_comment,  # Not Supported
+    issues,                       # Not Supported
+    issue_comment,                # Not Supported
   ]
 
 jobs:
