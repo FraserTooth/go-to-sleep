@@ -4,7 +4,7 @@
 
 Stop coding and go to sleep!
 
-**(Example Commit with Message)[https://github.com/FraserTooth/go-to-sleep-action/commit/a46d6fd23defa2b5b9c974cebbc843eeb01a5ff9]**
+**[Example Commit with Message](https://github.com/FraserTooth/go-to-sleep-action/commit/a46d6fd23defa2b5b9c974cebbc843eeb01a5ff9)**
 
 ## Inputs
 
